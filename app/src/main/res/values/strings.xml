@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Apply</string>
+    <string name="Upload">upload resume</string>
+    <string name="Error">Error Sending</string>
+    <string name="Complete">Thanks for Submitting</string>
+    <string name="button">Apply For Internship</string>
+</resources>
