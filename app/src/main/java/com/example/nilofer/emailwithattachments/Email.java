@@ -59,8 +59,7 @@ public class Email extends AppCompatActivity {
                 if (phone.isEmpty() || college.isEmpty() || skills.isEmpty()) {
                     Toast.makeText(Email.this, "Please enter all details first", Toast.LENGTH_SHORT).show();
 
-                }
-                else {
+                } else {
                     if (isValidMail(email) && isValidMobile(phone)) {
 
 
@@ -155,7 +154,6 @@ public class Email extends AppCompatActivity {
                     // contacts-related task you need to do.
 
                 } else {
-                    Toast.makeText(this, "fuck off", Toast.LENGTH_SHORT).show();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -219,11 +217,12 @@ public class Email extends AppCompatActivity {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            m = new Mail("neil.arnaiya21@gmail.com", "nilu@123N");
+            //add  your email and password credentials required for mail api to send mail
+            m = new Mail("addYourEmailId", "AddyourPassword");
 
-            String[] toArr = {"neil.arnaiya@gmail.com", "nilesharnaiya@gmail.com"};
+            String[] toArr = {"hr@shortfundly.com", "selvam@shortfundly.com"};
             m.setTo(toArr);
-            m.setFrom("hr@shortfundly.com");
+            m.setFrom("");
             m.setSubject("Internship Application");
             m.setBody(name + phone + email + college + skills);
             try {
@@ -233,7 +232,7 @@ public class Email extends AppCompatActivity {
 
 
                 if (m.send()) {
-                    Intent intent = new Intent(Email.this,Successful.class);
+                    Intent intent = new Intent(Email.this, Successful.class);
                     startActivity(intent);
                     Toast.makeText(Email.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
                 } else {
