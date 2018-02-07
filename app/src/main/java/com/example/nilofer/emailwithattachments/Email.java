@@ -27,7 +27,7 @@ public class Email extends AppCompatActivity {
     private final String TAG = "LOL";
     Button button;
     Uri uri;
-    Mail m;
+    Mail m ,mm;
     String path, name, email, college, phone, skills;
     EditText phone_text, institute_text, skills_text;
     TextView name_text, email_text;
@@ -56,22 +56,23 @@ public class Email extends AppCompatActivity {
 //                Log.d(TAG, path);
 
                 getUserData();
-                if (phone.isEmpty() || college.isEmpty() || skills.isEmpty()) {
+                if (phone =="" || college=="" || skills=="") {
                     Toast.makeText(Email.this, "Please enter all details first", Toast.LENGTH_SHORT).show();
 
-                } else {
+                }
+                else {
                     if (isValidMail(email) && isValidMobile(phone)) {
 
 
                         int permissionCheck = ContextCompat.checkSelfPermission(Email.this,
                                 Manifest.permission.READ_EXTERNAL_STORAGE);
-                        if (permissionCheck == 0) {
+                        if (permissionCheck != 0) {
                             ActivityCompat.requestPermissions(Email.this,
                                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                     1);
                             Toast.makeText(Email.this, "Email sent", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Email.this, Successful.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(Email.this, Successful.class);
+//                            startActivity(intent);
 
                         } else {
                             new Connection().execute("");
@@ -154,6 +155,7 @@ public class Email extends AppCompatActivity {
                     // contacts-related task you need to do.
 
                 } else {
+                    Toast.makeText(this, "fuck off", Toast.LENGTH_SHORT).show();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -217,24 +219,37 @@ public class Email extends AppCompatActivity {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            //add  your email and password credentials required for mail api to send mail
-            m = new Mail("addYourEmailId", "AddyourPassword");
-
+            //insert your gmail id and password
+            m = new Mail("test@gmail.com", "pass");
+            //insert where to send emails to
             String[] toArr = {"hr@shortfundly.com", "selvam@shortfundly.com"};
             m.setTo(toArr);
-            m.setFrom("");
+            m.setFrom("hr@shortfundly.com");
             m.setSubject("Internship Application");
-            m.setBody(name + phone + email + college + skills);
+            //body of the e-mail
+            m.setBody(name + "\n Phone: "+phone +"\n "+ email +"\n "+ college + "\n "+skills);
+           //new email respoond
+
             try {
                 String filepath = uri.toString();
                 m.addAttachment(path);
                 Log.d(TAG, filepath);
 
-
                 if (m.send()) {
-                    Intent intent = new Intent(Email.this, Successful.class);
-                    startActivity(intent);
-                    Toast.makeText(Email.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
+                    Log.d(TAG,"sending response email");
+                    //add email and password
+                    mm = new Mail("test@gmail.com", "pass");
+                    //insert where to send emails to
+                    String[] respondArray = {email};
+                    mm.setTo(respondArray);
+                    mm.setFrom("hr@shortfundly.com");
+                    mm.setSubject("We've received your application");
+                    //body of the e-mail
+                    mm.setBody("We've received your application! \n Hi "+name+",Thank you for applying to the ShortFundly Internship program. Your application " +
+                            "was successfully received!");
+                    if (mm.send()){
+                        Log.d(TAG,"sent bro");
+                    }
                 } else {
                     Toast.makeText(Email.this, "Email was not sent.", Toast.LENGTH_LONG).show();
                 }

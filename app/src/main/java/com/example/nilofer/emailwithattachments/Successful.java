@@ -33,8 +33,6 @@ public class Successful extends AppCompatActivity {
                     public void OnClick() {
                         //Toast.makeText(getApplicationContext(),"Rate",Toast.LENGTH_SHORT).show();
                         //go somewhere next screen or home screen
-                        Intent intent = new Intent(Successful.this, Email.class);
-                        startActivity(intent);
                     }
                 })
                 .OnNegativeClicked(new FancyAlertDialogListener() {
@@ -47,5 +45,11 @@ public class Successful extends AppCompatActivity {
                     }
                 })
                 .build();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }
