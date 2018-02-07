@@ -56,7 +56,7 @@ public class Email extends AppCompatActivity {
 //                Log.d(TAG, path);
 
                 getUserData();
-                if (phone =="" || college=="" || skills=="") {
+                if (phone.isEmpty() || college.isEmpty() || skills.isEmpty()) {
                     Toast.makeText(Email.this, "Please enter all details first", Toast.LENGTH_SHORT).show();
 
                 }
@@ -155,7 +155,6 @@ public class Email extends AppCompatActivity {
                     // contacts-related task you need to do.
 
                 } else {
-                    Toast.makeText(this, "fuck off", Toast.LENGTH_SHORT).show();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -248,14 +247,14 @@ public class Email extends AppCompatActivity {
                     mm.setBody("We've received your application! \n Hi "+name+",Thank you for applying to the ShortFundly Internship program. Your application " +
                             "was successfully received!");
                     if (mm.send()){
-                        Log.d(TAG,"sent bro");
+                        Log.d(TAG,"sent");
                     }
                 } else {
                     Toast.makeText(Email.this, "Email was not sent.", Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
                 //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
-                Log.e("MailApp", "Could not send email", e);
+                Log.e(TAG, "Could not send email", e);
             }
             return null;
         }
